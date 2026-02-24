@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.0.2)
+project(force_sensor_node)
+
+## Usar C++11
+add_compile_options(-std=c++11)
+
+## Encontrar los paquetes de ROS necesarios
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  std_msgs
+  geometry_msgs
+)
+
+## Configuración de Catkin
+catkin_package(
+  CATKIN_DEPENDS roscpp std_msgs geometry_msgs
+)
+
+## Incluir directorios
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
+
+## Crear el ejecutable del nodo
+add_executable(force_sensor_node src/force_sensor_node.cpp)
+
+## Link con las librerías de ROS
+target_link_libraries(force_sensor_node ${catkin_LIBRARIES})
+
+## Asegurar dependencias de mensajes (si hubiera)
+add_dependencies(force_sensor_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
